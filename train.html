@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Model - Blood Group Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .button {
+            background: #ff4d4d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background: #cc0000;
+        }
+        .stats {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Train Blood Group Recognition Model</h1>
+        <p>Use this interface to train the model with new data.</p>
+        
+        <button id="trainButton" class="button">Start Training</button>
+        
+        <div id="status" class="status" style="display: none;"></div>
+        
+        <div id="stats" class="stats" style="display: none;">
+            <h3>Training Results:</h3>
+            <p>Accuracy: <span id="accuracy"></span></p>
+            <p>Total Samples: <span id="samples"></span></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('trainButton').addEventListener('click', async () => {
+            const statusDiv = document.getElementById('status');
+            const statsDiv = document.getElementById('stats');
+            const button = document.getElementById('trainButton');
+            
+            try {
+                button.disabled = true;
+                statusDiv.className = 'status';
+                statusDiv.style.display = 'block';
+                statusDiv.textContent = 'Training in progress...';
+                
+                const response = await fetch('/train', {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusDiv.className = 'status success';
+                    statusDiv.textContent = data.message;
+                    
+                    // Show stats
+                    statsDiv.style.display = 'block';
+                    document.getElementById('accuracy').textContent = 
+                        (data.accuracy * 100).toFixed(2) + '%';
+                    document.getElementById('samples').textContent = data.samples;
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = 'Error: ' + error.message;
+            } finally {
+                button.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html> 

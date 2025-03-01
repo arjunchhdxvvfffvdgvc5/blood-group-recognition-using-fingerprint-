@@ -1,0 +1,165 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                        url('../static/result-bg.jpg') no-repeat center center/cover;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin: 20px;
+            max-width: 800px;
+            width: 100%;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .confidence-meter {
+            width: 200px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 10px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .confidence-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4d4d, #ff8080);
+            width: {{ (confidence * 100)|round }}%;
+            transition: width 1s ease-in-out;
+        }
+
+        .image-container {
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h1, h2, h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff4d4d;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            border: 2px solid transparent;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            border-color: #ff4d4d;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes progressBar {
+            from { width: 0; }
+            to { width: {{ (confidence * 100)|round }}%; }
+        }
+
+        .result-container {
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        .result-container h1 {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .result-container h2 {
+            animation: slideInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .confidence-section {
+            animation: slideInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .confidence-bar {
+            animation: progressBar 1.5s ease-out 0.8s backwards;
+        }
+
+        .image-container {
+            animation: slideInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .image-container img {
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-button {
+            animation: slideInUp 0.8s ease-out 0.8s backwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h1>Analysis Results</h1>
+        
+        <h2>Predicted Blood Group: {{ blood_group }}</h2>
+        
+        <div class="confidence-section">
+            <h3>Confidence Level: {{ "%.2f"|format(confidence) }}</h3>
+            <div class="confidence-meter">
+                <div class="confidence-bar"></div>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <h3>Enhanced Fingerprint Image:</h3>
+            <img src="{{ url_for('static', filename=enhanced_image) }}" alt="Enhanced Fingerprint">
+        </div>
+
+        <a href="{{ url_for('index') }}" class="cta-button">Analyze Another Fingerprint</a>
+    </div>
+</body>
+</html>

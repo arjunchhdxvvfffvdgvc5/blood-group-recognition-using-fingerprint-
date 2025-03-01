@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #35424a;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Animation for buttons */
+button {
+    padding: 10px 20px;
+    background-color: #38354a;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background-color: #556b78;
+}
+
+/* Animation for headings */
+h1, h2 {
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}

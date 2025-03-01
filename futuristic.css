@@ -1,0 +1,179 @@
+/* Futuristic Theme */
+:root {
+    --primary: #ff4d4d;
+    --primary-dark: #cc0000;
+    --accent: #00f7ff;
+    --dark: #1a1a2e;
+    --light: #f0f0f0;
+    --glass: rgba(255, 255, 255, 0.1);
+}
+
+/* Futuristic Background */
+.futuristic-bg {
+    background: linear-gradient(135deg, var(--dark), #2a2a4e);
+    position: relative;
+    overflow: hidden;
+}
+
+.futuristic-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 48%, var(--accent) 50%, transparent 52%) 0 0 / 20px 20px,
+        linear-gradient(-45deg, transparent 48%, var(--accent) 50%, transparent 52%) 0 0 / 20px 20px;
+    opacity: 0.1;
+    animation: gridMove 20s linear infinite;
+}
+
+/* Glassmorphism */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Neon Effects */
+.neon-text {
+    color: var(--accent);
+    text-shadow: 0 0 5px var(--accent),
+                 0 0 10px var(--accent),
+                 0 0 20px var(--accent);
+}
+
+.neon-border {
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 5px var(--accent),
+                inset 0 0 5px var(--accent);
+}
+
+/* Animated Buttons */
+.cyber-button {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    padding: 10px 25px;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.cyber-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: var(--accent);
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+.cyber-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.cyber-button:hover {
+    color: var(--dark);
+}
+
+/* Loading Animation */
+.cyber-loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid transparent;
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive Grid */
+.cyber-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Navigation */
+.cyber-nav {
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--accent);
+}
+
+.cyber-nav a {
+    position: relative;
+    color: var(--light);
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.cyber-nav a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.cyber-nav a:hover::before {
+    width: 100%;
+}
+
+/* Medical Loading Animation */
+.medical-loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--primary);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: medicalSpin 1s linear infinite;
+    position: relative;
+}
+
+.medical-loader::before {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--primary);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@keyframes medicalSpin {
+    to { transform: rotate(360deg); }
+} 
